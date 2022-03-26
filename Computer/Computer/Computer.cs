@@ -1,12 +1,19 @@
-﻿namespace Computer
+﻿
+using Computer.Components;
+
+namespace Computer
 {
-    public class Computer
+    public static class Computer
     {
+        static Dictionary<string, Dictionary<string, string>> ComputerContainer = new();
         public static void Main(string[] args)
         {
-            Dictionary<string, string> people = new Dictionary<string, string>();
-            
-            
+            var processorBuilder = new ProcessorBuilder("Amd");
+            processorBuilder.SetProcessorCashStorage(15);
+            processorBuilder.SetProcessorThreadCount(22);
+            processorBuilder.SetProcessorThreadFrequency(5000);
+            processorBuilder.SetProcessorTdp(25);
+            var myProcessor = processorBuilder.Build();
             
         }
     }
