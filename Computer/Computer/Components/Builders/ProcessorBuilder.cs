@@ -1,31 +1,57 @@
 ﻿using Computer.Components.Container;
 
-namespace Computer.Components;
+namespace Computer.Components.Builders;
 
-public class ProcessorBuilder : ComponentContainer
+public class ProcessorBuilder : AbstractComponentContainer
 {
-    private string
+    private const string
         Name = "ProcessorName",
+        IntegratedVideo = "IntegratedVideo",
         ThreadCount = "ProcessorTreadCount",
         ThreadFrequency = "ProcessorThreadFrequency",
         CashStorage = "ProcessorCashStorage",
-        TDP = "ProcessorTDP";
+        Tdp = "ProcessorTDP",
+        Socket = "ProcessorSocket",
+        ComponentTypeName = "Processor";
 
     public ProcessorBuilder(string name)
     {
+        AddComponentValue(ComponentType, ComponentTypeName);
         AddComponentValue(Name, name);
+        AddComponentValue(IntegratedVideo, "false");
+    }
+
+    public void SetIntegratedVideo(bool isHave)
+    {
+        RemoveComponentValue(IntegratedVideo);
+        AddComponentValue(IntegratedVideo, isHave.ToString());
     }
 
     public void SetProcessorThreadCount(int threadCount)
     {
-        if (threadCount <= 0 & threadCount > 64)
+        if (threadCount <= 0 | threadCount > 64)
         {
             ErrorMessage(ThreadCount, threadCount.ToString());
             return;
         }
+
         AddComponentValue(ThreadCount, threadCount.ToString());
     }
-    
+
+    public void SetProcessorSocket(string socketType)
+    {
+        foreach (var socket in Sockets)
+        {
+            if (socket.Equals(socketType))
+            {
+                AddComponentValue(Socket, socketType);
+                return;
+            }
+        }
+
+        ErrorMessage(Socket, socketType);
+    }
+
     public void SetProcessorThreadFrequency(int threadFrequency)
     {
         if (threadFrequency <= 0 | threadFrequency > 5000)
@@ -33,44 +59,34 @@ public class ProcessorBuilder : ComponentContainer
             ErrorMessage(ThreadFrequency, threadFrequency.ToString());
             return;
         }
+
         AddComponentValue(ThreadFrequency, threadFrequency.ToString());
     }
-    
+
     public void SetProcessorCashStorage(int cashStorage)
     {
-        if (cashStorage <= 0 & cashStorage > 100)
+        if (cashStorage <= 0 | cashStorage > 100)
         {
             ErrorMessage(CashStorage, cashStorage.ToString());
             return;
         }
+
         AddComponentValue(CashStorage, cashStorage.ToString());
     }
-    
-    public void SetProcessorTdp(int TDP)
+
+    public void SetProcessorTdp(int tdp)
     {
-        if (TDP <= 0 & TDP > 300)
+        if (tdp <= 0 & tdp > 300)
         {
-            ErrorMessage(this.TDP, TDP.ToString());
+            ErrorMessage(Tdp, tdp.ToString());
             return;
         }
-        AddComponentValue(this.TDP, TDP.ToString());
-    }
 
-    public void ReplaceProcessor(string name)
-    {
-        ClearComponentContainer();
-        AddComponentValue(Name, name);
+        AddComponentValue(Tdp, tdp.ToString());
     }
-
 
     public Dictionary<string, string> Build()
     {
         return GetComponent();
-    }
-
-     private void ErrorMessage(string errorItem, string errorValue)
-    {
-        Console.WriteLine("Error to add "+ errorItem + " Info! Input "+ errorItem +" : " + errorValue +
-                          " is not valid!");
     }
 }

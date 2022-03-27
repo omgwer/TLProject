@@ -1,10 +1,13 @@
 ﻿namespace Computer.Components.Container;
 
-public abstract class ComponentContainer
+public abstract class AbstractComponentContainer
 {
     private Dictionary<string, string> Component;
-
-    protected ComponentContainer()
+    protected readonly string[] Sockets = {"Amd", "Intel"};
+    protected readonly string[] FormFactor = {"MicroATX", "ATX"};
+    protected const int MaxRAMSlotsCount = 8;
+    protected const string ComponentType = "ComponentType";
+    protected AbstractComponentContainer()
     {
         Component = new Dictionary<string, string>();
     }
@@ -24,7 +27,7 @@ public abstract class ComponentContainer
         Component.Clear();
     }
 
-    protected bool IsHaveParameter(String key)
+    protected bool IsHaveParameter(string key)
     {
         return Component.ContainsKey(key);
     }
@@ -39,5 +42,17 @@ public abstract class ComponentContainer
     protected Dictionary<string, string> GetComponent()
     {
         return Component;
+    }
+
+    protected void ReplaceComponent(string componentType, string componentName)
+    {
+        ClearComponentContainer();
+        AddComponentValue(componentType, componentName);
+    }
+
+    protected void ErrorMessage(string errorItem, string errorValue)
+    {
+        Console.WriteLine("Error to add " + errorItem + " Info! Input " + errorItem + " : " + errorValue +
+                          " is not valid!");
     }
 }
