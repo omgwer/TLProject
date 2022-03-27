@@ -5,7 +5,7 @@ public class Ellipse
         horisontalRadius,
         verticalRadius;
      
-    private const int ROUND_ACCURACY = 2;
+    private const int RoundAccuracy = 2;
     
     public Ellipse(int verticalRadius, int horisontalRadius)
     {
@@ -18,13 +18,13 @@ public class Ellipse
         this.horisontalRadius = horisontalRadius;
     }
 
-    public double getSquareEllipse()
+    public double GetSquareEllipse()
     {
-        return Math.Round(Math.PI * horisontalRadius * verticalRadius, ROUND_ACCURACY);
+        return Math.Round(Math.PI * horisontalRadius * verticalRadius, RoundAccuracy);
     }
 
-    public double getСircumferenceEllipse()
+    public double GetСircumferenceEllipse()
     {
-        return Math.Round(Math.PI * (horisontalRadius + verticalRadius), ROUND_ACCURACY);
+        return Math.Round(Math.PI * (horisontalRadius + verticalRadius), RoundAccuracy);
     }
 }

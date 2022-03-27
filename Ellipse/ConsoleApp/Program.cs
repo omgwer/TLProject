@@ -10,8 +10,8 @@
             try
             {
                 Ellipse newEllipse = new Ellipse(verticalRadius, horisontalRadius);
-                Console.WriteLine("Ellipse Square is : " + newEllipse.getSquareEllipse());
-                Console.WriteLine("Ellipse circumference is : " + newEllipse.getСircumferenceEllipse());
+                Console.WriteLine("Ellipse Square is : " + newEllipse.GetSquareEllipse());
+                Console.WriteLine("Ellipse Circumference is : " + newEllipse.GetСircumferenceEllipse());
             }
             catch (ArgumentException exception)
             {
