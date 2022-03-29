@@ -1,13 +1,13 @@
 ﻿namespace Computer.Components.Helper;
 
-public class GetInformation
+public class ComputerHelper
 {
-    public GetInformation(Dictionary<string, string> container)
+    public void GetInformation(Dictionary<string, string> container)
     {
         GetElementInformation(container);
     }
 
-    public GetInformation(Dictionary<string, Dictionary<string, string>> container)
+    public void GetInformation(Dictionary<string, Dictionary<string, string>> container)
     {
         foreach (var computerContainer in container)
         {

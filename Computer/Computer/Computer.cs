@@ -3,12 +3,12 @@ using Computer.Components.Helper;
 
 namespace Computer
 {
-    public static class Computer
+    public static class ProcessorTest
     {
         public static void Main(string[] args)
         {
             var myDefaultPc = new Director().BuildDefaultPc();
-            new GetInformation(myDefaultPc);
+            new ComputerHelper().GetInformation(myDefaultPc);
         }
     }
 }

@@ -1,6 +1,4 @@
-﻿using Computer.Components.Container;
-
-namespace Computer.Components.Builders;
+﻿namespace Computer.Components.Builders;
 
 public class MotherboardBuilder : AbstractBuilder
 {
@@ -10,13 +8,13 @@ public class MotherboardBuilder : AbstractBuilder
         Size = "MotherboardSize",
         RamSlotCount = "MotherboardRAMSlotsCount",
         ComponentTypeName = "Motherboard";
-    
+
     public MotherboardBuilder(string name)
     {
         AddComponentValue(ComponentType, ComponentTypeName);
         AddComponentValue(Name, name);
     }
-    
+
     public void SetMotherboardSocket(string socketType)
     {
         foreach (var socket in Sockets)
@@ -27,6 +25,7 @@ public class MotherboardBuilder : AbstractBuilder
                 return;
             }
         }
+
         ErrorMessage(Socket, socketType);
     }
 
@@ -40,9 +39,10 @@ public class MotherboardBuilder : AbstractBuilder
                 return;
             }
         }
+
         ErrorMessage(Size, size);
     }
-    
+
     public void SetMotherBoardRamSlotCount(int ramSlotCount)
     {
         if (ramSlotCount <= 0 | ramSlotCount > MaxRAMSlotsCount)
@@ -50,9 +50,10 @@ public class MotherboardBuilder : AbstractBuilder
             ErrorMessage(RamSlotCount, ramSlotCount.ToString());
             return;
         }
+
         AddComponentValue(RamSlotCount, ramSlotCount.ToString());
     }
-    
+
     public Dictionary<string, string> Build()
     {
         return GetComponent();
