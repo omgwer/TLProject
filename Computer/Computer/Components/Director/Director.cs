@@ -1,13 +1,11 @@
 ﻿using Computer.Components.Builders;
 
-namespace Computer.Components.Factory;
+namespace Computer.Components.Director;
 
-public class ComputerFactory
+public class Director
 {
     public Dictionary<string, Dictionary<string, string>> BuildDefaultPc()
     {
-        var buildingPc = new ComputerBuilder();
-
         var myNewProcessor = new ProcessorBuilder("DefaultProcessor");
         myNewProcessor.SetIntegratedVideo(true);
         myNewProcessor.SetProcessorSocket("Amd");
@@ -42,6 +40,7 @@ public class ComputerFactory
         myNewVideoCard.SetVideoCardMemorySize(250);
         var videoCard = myNewVideoCard.Build();
 
+        var buildingPc = new ComputerBuilder();
         buildingPc.AddComponent(processor);
         buildingPc.AddComponent(motherboard);
         buildingPc.AddComponent(ram);

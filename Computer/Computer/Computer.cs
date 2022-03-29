@@ -1,4 +1,4 @@
-﻿using Computer.Components.Factory;
+﻿using Computer.Components.Director;
 using Computer.Components.Helper;
 
 namespace Computer
@@ -7,7 +7,7 @@ namespace Computer
     {
         public static void Main(string[] args)
         {
-            var myDefaultPc = new ComputerFactory().BuildDefaultPc();
+            var myDefaultPc = new Director().BuildDefaultPc();
             new GetInformation(myDefaultPc);
         }
     }
