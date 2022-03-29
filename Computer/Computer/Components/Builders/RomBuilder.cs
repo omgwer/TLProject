@@ -2,7 +2,7 @@
 
 namespace Computer.Components.Builders;
 
-public class RomBuilder : AbstractComponentContainer
+public class RomBuilder : AbstractBuilder
 {
     private const string
         Name = "RomName",

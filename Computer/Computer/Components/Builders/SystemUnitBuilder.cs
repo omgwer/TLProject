@@ -2,7 +2,7 @@
 
 namespace Computer.Components.Builders;
 
-public class SystemUnitBuilder : AbstractComponentContainer
+public class SystemUnitBuilder : AbstractBuilder
 {
     private const string
         Name = "SystemUnitName",

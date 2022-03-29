@@ -2,7 +2,7 @@
 
 namespace Computer.Components.Builders;
 
-public class MotherboardBuilder : AbstractComponentContainer
+public class MotherboardBuilder : AbstractBuilder
 {
     private const string
         Name = "MotherboardName",

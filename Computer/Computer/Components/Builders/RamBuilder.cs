@@ -2,7 +2,7 @@
 
 namespace Computer.Components.Builders;
 
-public class RamBuilder : AbstractComponentContainer
+public class RamBuilder : AbstractBuilder
 {
     private const string
         Name = "RamName",

@@ -2,7 +2,7 @@
 
 namespace Computer.Components.Builders;
 
-public class ProcessorBuilder : AbstractComponentContainer
+public class ProcessorBuilder : AbstractBuilder
 {
     private const string
         Name = "ProcessorName",

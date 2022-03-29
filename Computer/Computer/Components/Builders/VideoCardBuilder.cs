@@ -2,7 +2,7 @@
 
 namespace Computer.Components.Builders;
 
-public class VideoCardBuilder : AbstractComponentContainer
+public class VideoCardBuilder : AbstractBuilder
 {
     private const string
         Name = "VideoCardName",
