@@ -8,10 +8,8 @@
 
         public bool IntegratedVideo;
 
-        public int 
+        public int
             ThreadCount,
-            ThreadFrequency,
-            CashStorage,
-            TDP;
+            CoreFrequency;
     }
 }

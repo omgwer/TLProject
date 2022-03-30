@@ -1,5 +1,4 @@
-﻿using System.Text;
-using Computer.Components.Container;
+﻿using Computer.Components.Container;
 
 namespace Computer.Components.Builders;
 
@@ -27,8 +26,9 @@ public class MotherboardBuilder : AbstractBuilder
 
     public MotherboardBuilder SetRamSlotsCount(int ramSlotsCount)
     {
-        if (0 < ramSlotsCount | ramSlotsCount > MaxRamSlotsCount)
+        if (ramSlotsCount < 0 | ramSlotsCount > MaxRamSlotsCount)
         {
+            throw new ArgumentException( ramSlotsCount + " - argument is not valid");
         }
 
         Motherboard.RamSlotCount = ramSlotsCount;
@@ -37,11 +37,11 @@ public class MotherboardBuilder : AbstractBuilder
 
     public Motherboard Build()
     {
-        checkReadyToBuild();
+        CheckReadyToBuild();
         return Motherboard;
     }
 
-    public void checkReadyToBuild()
+    private void CheckReadyToBuild()
     {
         var softAssert = "";
         if (Motherboard.Name == null)
