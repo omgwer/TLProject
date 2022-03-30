@@ -13,6 +13,6 @@ public class MotherboardTest
     [Test]
     public void Test1()
     {
-        var testMotherBoard = new MotherboardBuilder("newMotherboard");
+       
     }
 }

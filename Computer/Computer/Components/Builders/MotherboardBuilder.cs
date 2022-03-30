@@ -1,61 +1,72 @@
-﻿namespace Computer.Components.Builders;
+﻿using System.Text;
+using Computer.Components.Container;
+
+namespace Computer.Components.Builders;
 
 public class MotherboardBuilder : AbstractBuilder
 {
-    private const string
-        Name = "MotherboardName",
-        Socket = "MotherboardSocket",
-        Size = "MotherboardSize",
-        RamSlotCount = "MotherboardRAMSlotsCount",
-        ComponentTypeName = "Motherboard";
+    private Motherboard Motherboard = new();
 
-    public MotherboardBuilder(string name)
+    public MotherboardBuilder SetMotherboardName(string name)
     {
-        AddComponentValue(ComponentType, ComponentTypeName);
-        AddComponentValue(Name, name);
+        Motherboard.Name = name;
+        return this;
     }
 
-    public void SetMotherboardSocket(string socketType)
+    public MotherboardBuilder SetMotherboardSocket(string socket)
     {
-        foreach (var socket in Sockets)
+        Motherboard.Socket = socket;
+        return this;
+    }
+
+    public MotherboardBuilder SetMotherboardSize(string size)
+    {
+        Motherboard.Size = size;
+        return this;
+    }
+
+    public MotherboardBuilder SetRamSlotsCount(int ramSlotsCount)
+    {
+        if (0 < ramSlotsCount | ramSlotsCount > MaxRamSlotsCount)
         {
-            if (socket.Equals(socketType))
-            {
-                AddComponentValue(Socket, socketType);
-                return;
-            }
         }
 
-        ErrorMessage(Socket, socketType);
+        Motherboard.RamSlotCount = ramSlotsCount;
+        return this;
     }
 
-    public void SetMotherboardSize(string size)
+    public Motherboard Build()
     {
-        foreach (var form in FormFactor)
+        checkReadyToBuild();
+        return Motherboard;
+    }
+
+    public void checkReadyToBuild()
+    {
+        var softAssert = "";
+        if (Motherboard.Name == null)
         {
-            if (form.Equals(size))
-            {
-                AddComponentValue(Size, size);
-                return;
-            }
+            softAssert += "MotherboardName ";
         }
 
-        ErrorMessage(Size, size);
-    }
-
-    public void SetMotherBoardRamSlotCount(int ramSlotCount)
-    {
-        if (ramSlotCount <= 0 | ramSlotCount > MaxRAMSlotsCount)
+        if (Motherboard.Size == null)
         {
-            ErrorMessage(RamSlotCount, ramSlotCount.ToString());
-            return;
+            softAssert += "MotherboardSize ";
         }
 
-        AddComponentValue(RamSlotCount, ramSlotCount.ToString());
-    }
+        if (Motherboard.Socket == null)
+        {
+            softAssert += "MotherboardSocket ";
+        }
 
-    public Dictionary<string, string> Build()
-    {
-        return GetComponent();
+        if (Motherboard.RamSlotCount == 0)
+        {
+            softAssert += "MotherboardRamSlotCount ";
+        }
+
+        if (softAssert != "")
+        {
+            throw new ArgumentNullException(softAssert, "Error with build component");
+        }
     }
 }

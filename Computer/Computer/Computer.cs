@@ -1,6 +1,4 @@
-﻿using Computer.Components.Director;
-using Computer.Components.Helper;
-using Computer.Components.Container;
+﻿using Computer.Components.Builders;
 
 namespace Computer
 {
@@ -11,11 +9,13 @@ namespace Computer
             // var myDefaultPc = new Director().BuildDefaultPc();
             //new ComputerHelper().GetInformation(myDefaultPc);
 
-            var t = new Processor();
-            t.Name = "test";
-            Console.WriteLine("rrr");
-            
-            
+            var t = new MotherboardBuilder();
+            var res = t.SetMotherboardSocket("arm")
+                .SetMotherboardName("kek")
+                .SetMotherboardSize("test")
+                .SetRamSlotsCount(5)
+                .Build();
+            Console.WriteLine('r');
         }
     }
 }

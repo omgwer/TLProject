@@ -1,12 +1,14 @@
-﻿
-namespace Computer.Components.Container
+﻿namespace Computer.Components.Container
 {
     public class Ram
     {
-        public string Name,
-                      MemoryType;
-        public int Memory,
-                   StickCount,
-                   MemoryFrequency;
+        public string 
+            Name,
+            MemoryType;
+
+        public int 
+            Memory,
+            StickCount,
+            MemoryFrequency;
     }
 }

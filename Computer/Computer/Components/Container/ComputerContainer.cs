@@ -1,6 +1,6 @@
 ﻿namespace Computer.Components.Container
 {
-    public class Computer
+    public class ComputerContainer
     {
         public Processor Processor;
         public Motherboard Motherboard;

@@ -1,14 +1,17 @@
-﻿
-namespace Computer.Components.Container
+﻿namespace Computer.Components.Container
 {
     public class Processor
     {
-        public string Name,
-                      Socket;
+        public string 
+            Name,
+            Socket;
+
         public bool IntegratedVideo;
-        public int ThreadCount,
-                   ThreadFrequency,
-                   CashStorage,
-                   TDP;
+
+        public int 
+            ThreadCount,
+            ThreadFrequency,
+            CashStorage,
+            TDP;
     }
 }
