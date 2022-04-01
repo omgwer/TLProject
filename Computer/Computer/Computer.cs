@@ -1,4 +1,5 @@
-﻿using Computer.Components.Builders;
+﻿using Computer.Components.Director;
+using Computer.Components.Helper;
 
 namespace Computer
 {
@@ -6,22 +7,9 @@ namespace Computer
     {
         public static void Main(string[] args)
         {
-            var res = new MotherboardBuilder()
-                .SetMotherboardSocket("arm")
-                .SetMotherboardName("kek")
-                .SetMotherboardSize("test")
-                .SetRamSlotsCount(5)
-                .Build();
-            var proc = new ProcessorBuilder()
-                .SetProcessorName("kek")
-                .SetProcessorSocket("am4")
-                .SetProcessorIntegratedVideo(true)
-                .SetProcessorThreadCount(4)
-                .SetProcessorThreadFrequency(5000)
-                .Build();
-            Console.WriteLine('r');
-            var ram = new RamBuilder()
-                .Build();
+            var newComputer = new Director().BuildDefaultPc();
+            Console.WriteLine("My new computer : \n");
+            ComputerHelper.GetInformation(newComputer);
         }
     }
 }

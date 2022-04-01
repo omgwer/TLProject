@@ -2,9 +2,10 @@
 
 namespace Computer.Components.Builders;
 
-public class RamBuilder : AbstractBuilder
+public class RamBuilder
 {
     private Ram Ram = new();
+    private const int MaxRamSlotsCount = 8;
 
     public RamBuilder SetRamName(string name)
     {
@@ -31,7 +32,7 @@ public class RamBuilder : AbstractBuilder
 
     public RamBuilder SetStickCount(int stickCount)
     {
-        if (stickCount < 0 | stickCount > 8)
+        if (stickCount < 0 | stickCount > MaxRamSlotsCount)
         {
             throw new ArgumentException(stickCount + " - argument is not valid");
         }

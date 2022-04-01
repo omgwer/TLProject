@@ -2,10 +2,10 @@
 
 namespace Computer.Components.Builders;
 
-public class ProcessorBuilder : AbstractBuilder
+public class ProcessorBuilder
 {
     private Processor Processor = new();
-    
+
     public ProcessorBuilder SetProcessorName(string name)
     {
         Processor.Name = name;
@@ -28,18 +28,18 @@ public class ProcessorBuilder : AbstractBuilder
     {
         if (threadCount < 0 | threadCount > 64)
         {
-            throw new ArgumentException( threadCount + " - argument is not valid");
+            throw new ArgumentException(threadCount + " - argument is not valid");
         }
-        
+
         Processor.ThreadCount = threadCount;
         return this;
     }
-    
+
     public ProcessorBuilder SetProcessorThreadFrequency(int coreFrequency)
     {
         if (coreFrequency < 0 | coreFrequency > 5000)
         {
-            throw new ArgumentException( coreFrequency + " - argument is not valid");
+            throw new ArgumentException(coreFrequency + " - argument is not valid");
         }
 
         Processor.CoreFrequency = coreFrequency;
@@ -69,7 +69,7 @@ public class ProcessorBuilder : AbstractBuilder
         {
             softAssert += "ProcessorRamSlotCount ";
         }
-        
+
         if (Processor.CoreFrequency == 0)
         {
             softAssert += "ProcessorRamSlotCount ";

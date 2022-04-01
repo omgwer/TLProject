@@ -2,9 +2,10 @@
 
 namespace Computer.Components.Builders;
 
-public class MotherboardBuilder : AbstractBuilder
+public class MotherboardBuilder
 {
     private Motherboard Motherboard = new();
+    private const int MaxRamSlotsCount = 8;
 
     public MotherboardBuilder SetMotherboardName(string name)
     {
@@ -28,7 +29,7 @@ public class MotherboardBuilder : AbstractBuilder
     {
         if (ramSlotsCount < 0 | ramSlotsCount > MaxRamSlotsCount)
         {
-            throw new ArgumentException( ramSlotsCount + " - argument is not valid");
+            throw new ArgumentException(ramSlotsCount + " - argument is not valid");
         }
 
         Motherboard.RamSlotCount = ramSlotsCount;
