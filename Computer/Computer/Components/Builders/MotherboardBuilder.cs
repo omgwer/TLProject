@@ -4,11 +4,12 @@ namespace Computer.Components.Builders;
 
 public class MotherboardBuilder
 {
-    private Motherboard Motherboard = new();
+    private Motherboard Motherboard;
     private const int MaxRamSlotsCount = 8;
 
     public MotherboardBuilder SetMotherboardName(string name)
     {
+        Motherboard = new Motherboard();
         Motherboard.Name = name;
         return this;
     }

@@ -34,7 +34,7 @@ public class MotherboardTest
     }
 
     [Test]
-    public void MotherboardNegativeTest_emptySomeoneComponent()
+    public void MotherboardNegativeTest_emptySomeoneValue()
     {
         Assert.Throws<ArgumentNullException>(() =>
         {
@@ -47,8 +47,9 @@ public class MotherboardTest
     }
 
     [Test]
-    public void MotherboardNegativeTest_notValidArgument()
+    public void MotherboardNegativeTest_ValidateInputValueForComponents()
     {
-        
+        var newMotherboard = new MotherboardBuilder();
+
     }
 }
