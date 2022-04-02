@@ -4,7 +4,12 @@ namespace Computer.Components.Builders;
 
 public class VideoCardBuilder
 {
-    private VideoCard VideoCard = new();
+    private VideoCard VideoCard;
+    
+    public VideoCardBuilder()
+    {
+        VideoCard = new VideoCard();
+    }
 
     public VideoCardBuilder SetVideocardName(string name)
     {
@@ -20,7 +25,7 @@ public class VideoCardBuilder
 
     public VideoCardBuilder SetMemorySize(int memorySize)
     {
-        if (memorySize < 0 | memorySize > 16000)
+        if (memorySize <= 0 | memorySize > 16000)
         {
             throw new ArgumentException(memorySize + " - argument is not valid");
         }
@@ -31,7 +36,7 @@ public class VideoCardBuilder
 
     public VideoCardBuilder SetTdp(int tdp)
     {
-        if (tdp < 0 | tdp > 300)
+        if (tdp <= 0 | tdp > 300)
         {
             throw new ArgumentException(tdp + " - argument is not valid");
         }

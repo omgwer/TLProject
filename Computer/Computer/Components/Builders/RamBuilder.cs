@@ -4,8 +4,13 @@ namespace Computer.Components.Builders;
 
 public class RamBuilder
 {
-    private Ram Ram = new();
+    private Ram Ram;
     private const int MaxRamSlotsCount = 8;
+    
+    public RamBuilder()
+    {
+        Ram = new Ram();
+    }
 
     public RamBuilder SetRamName(string name)
     {
@@ -32,7 +37,7 @@ public class RamBuilder
 
     public RamBuilder SetStickCount(int stickCount)
     {
-        if (stickCount < 0 | stickCount > MaxRamSlotsCount)
+        if (stickCount <= 0 | stickCount > MaxRamSlotsCount)
         {
             throw new ArgumentException(stickCount + " - argument is not valid");
         }
@@ -43,7 +48,7 @@ public class RamBuilder
 
     public RamBuilder SetMemoryFrequency(int memoryFrequency)
     {
-        if (memoryFrequency < 0 | memoryFrequency > 8000)
+        if (memoryFrequency <= 0 | memoryFrequency > 8000)
         {
             throw new ArgumentException(memoryFrequency + " - argument is not valid");
         }

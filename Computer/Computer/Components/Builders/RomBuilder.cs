@@ -4,8 +4,13 @@ namespace Computer.Components.Builders;
 
 public class RomBuilder
 {
-    private Rom Rom = new();
+    private Rom Rom;
 
+    public RomBuilder()
+    {
+        Rom = new Rom();
+    }
+    
     public RomBuilder SetRomName(string name)
     {
         Rom.Name = name;
@@ -20,7 +25,7 @@ public class RomBuilder
 
     public RomBuilder SetRomMemory(int capacity)
     {
-        if (capacity < 0 | capacity > 1000000)
+        if (capacity <= 0 | capacity > 1000000)
         {
             throw new ArgumentException(capacity + " - argument is not valid");
         }
@@ -31,7 +36,7 @@ public class RomBuilder
 
     public RomBuilder SetRomSpeed(int speed)
     {
-        if (speed < 0 | speed > 10000)
+        if (speed <= 0 | speed > 10000)
         {
             throw new ArgumentException(speed + " - argument is not valid");
         }

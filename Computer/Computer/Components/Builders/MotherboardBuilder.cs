@@ -7,9 +7,13 @@ public class MotherboardBuilder
     private Motherboard Motherboard;
     private const int MaxRamSlotsCount = 8;
 
-    public MotherboardBuilder SetMotherboardName(string name)
+    public MotherboardBuilder()
     {
         Motherboard = new Motherboard();
+    }
+
+    public MotherboardBuilder SetMotherboardName(string name)
+    {
         Motherboard.Name = name;
         return this;
     }
@@ -28,7 +32,7 @@ public class MotherboardBuilder
 
     public MotherboardBuilder SetRamSlotsCount(int ramSlotsCount)
     {
-        if (ramSlotsCount < 0 | ramSlotsCount > MaxRamSlotsCount)
+        if (ramSlotsCount <= 0 | ramSlotsCount > MaxRamSlotsCount)
         {
             throw new ArgumentException(ramSlotsCount + " - argument is not valid");
         }

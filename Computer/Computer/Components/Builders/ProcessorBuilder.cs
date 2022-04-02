@@ -4,7 +4,12 @@ namespace Computer.Components.Builders;
 
 public class ProcessorBuilder
 {
-    private Processor Processor = new();
+    private Processor Processor;
+
+    public ProcessorBuilder()
+    {
+        Processor = new Processor();
+    }
 
     public ProcessorBuilder SetProcessorName(string name)
     {
@@ -26,7 +31,7 @@ public class ProcessorBuilder
 
     public ProcessorBuilder SetProcessorThreadCount(int threadCount)
     {
-        if (threadCount < 0 | threadCount > 64)
+        if (threadCount <= 0 | threadCount > 64)
         {
             throw new ArgumentException(threadCount + " - argument is not valid");
         }
@@ -37,7 +42,7 @@ public class ProcessorBuilder
 
     public ProcessorBuilder SetProcessorThreadFrequency(int coreFrequency)
     {
-        if (coreFrequency < 0 | coreFrequency > 5000)
+        if (coreFrequency <= 0 | coreFrequency > 5000)
         {
             throw new ArgumentException(coreFrequency + " - argument is not valid");
         }

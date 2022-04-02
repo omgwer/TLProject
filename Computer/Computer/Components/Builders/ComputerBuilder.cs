@@ -4,7 +4,12 @@ namespace Computer.Components.Builders;
 
 public class ComputerBuilder
 {
-    private ComputerContainer ComputerContainer = new();
+    private ComputerContainer ComputerContainer;
+
+    public ComputerBuilder()
+    {
+        ComputerContainer = new ComputerContainer();
+    }
 
     public ComputerBuilder AddVideocard(VideoCard videoCard)
     {

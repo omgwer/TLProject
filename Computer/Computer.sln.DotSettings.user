@@ -3,5 +3,17 @@
   &lt;Or&gt;&#xD;
     &lt;ProjectFile&gt;60FE52CD-1D05-47E9-A164-E3DCD6CD1CEF/f:ComputerTest.cs&lt;/ProjectFile&gt;&#xD;
     &lt;ProjectFile&gt;60FE52CD-1D05-47E9-A164-E3DCD6CD1CEF/d:ComponentsTest/f:MotherboardTest.cs&lt;/ProjectFile&gt;&#xD;
+    &lt;TestAncestor&gt;&#xD;
+      &lt;TestId&gt;NUnit3x::60FE52CD-1D05-47E9-A164-E3DCD6CD1CEF::net6.0::ComputerTest.ComponentsTest.ProcessorTest.ProcessorPositiveTest_overrideValue&lt;/TestId&gt;&#xD;
+      &lt;TestId&gt;NUnit3x::60FE52CD-1D05-47E9-A164-E3DCD6CD1CEF::net6.0::ComputerTest.ComponentsTest.ProcessorTest.ProcessorNegativeTest_ValidateInputValueForComponents&lt;/TestId&gt;&#xD;
+      &lt;TestId&gt;NUnit3x::60FE52CD-1D05-47E9-A164-E3DCD6CD1CEF::net6.0::ComputerTest.ComponentsTest.RamTest.RamPositiveTest_overrideValue&lt;/TestId&gt;&#xD;
+      &lt;TestId&gt;NUnit3x::60FE52CD-1D05-47E9-A164-E3DCD6CD1CEF::net6.0::ComputerTest.ComponentsTest.RamTest.RamNegativeTest_ValidateInputValueForComponents&lt;/TestId&gt;&#xD;
+      &lt;TestId&gt;NUnit3x::60FE52CD-1D05-47E9-A164-E3DCD6CD1CEF::net6.0::ComputerTest.ComponentsTest.RomTest.RomPositiveTest_overrideValue&lt;/TestId&gt;&#xD;
+      &lt;TestId&gt;NUnit3x::60FE52CD-1D05-47E9-A164-E3DCD6CD1CEF::net6.0::ComputerTest.ComponentsTest.RomTest.RomNegativeTest_ValidateInputValueForComponents&lt;/TestId&gt;&#xD;
+      &lt;TestId&gt;NUnit3x::60FE52CD-1D05-47E9-A164-E3DCD6CD1CEF::net6.0::ComputerTest.ComponentsTest.VideoCardTest.SustemUnitPositiveTest_overrideValue&lt;/TestId&gt;&#xD;
+      &lt;TestId&gt;NUnit3x::60FE52CD-1D05-47E9-A164-E3DCD6CD1CEF::net6.0::ComputerTest.ComponentsTest.VideoCardTest.SustemUnitNegativeTest_ValidateInputValueForComponents&lt;/TestId&gt;&#xD;
+    &lt;/TestAncestor&gt;&#xD;
+    &lt;ProjectFile&gt;60FE52CD-1D05-47E9-A164-E3DCD6CD1CEF/d:ComponentsTest/f:ProcessorTest.cs&lt;/ProjectFile&gt;&#xD;
+    &lt;ProjectFile&gt;60FE52CD-1D05-47E9-A164-E3DCD6CD1CEF/d:ComponentsTest/f:RamTest.cs&lt;/ProjectFile&gt;&#xD;
   &lt;/Or&gt;&#xD;
 &lt;/SessionState&gt;</s:String></wpf:ResourceDictionary>

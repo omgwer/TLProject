@@ -5,6 +5,9 @@ namespace Computer
 {
     public static class ProcessorTest
     {
+        /**
+         * Build default computer and write information on console
+         */
         public static void Main(string[] args)
         {
             var newComputer = new Director().BuildDefaultPc();

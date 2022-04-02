@@ -4,8 +4,12 @@ namespace Computer.Components.Builders;
 
 public class SystemUnitBuilder
 {
-    private SystemUnit SystemUnit = new();
-
+    private SystemUnit SystemUnit;
+    
+    public SystemUnitBuilder()
+    {
+        SystemUnit = new SystemUnit();
+    }
     public SystemUnitBuilder SetName(string name)
     {
         SystemUnit.Name = name;
@@ -26,7 +30,7 @@ public class SystemUnitBuilder
 
     public SystemUnitBuilder SetWeight(int weight)
     {
-        if (weight < 0 | weight > 10000)
+        if (weight <= 0 | weight > 10000)
         {
             throw new ArgumentException(weight + " - argument is not valid");
         }

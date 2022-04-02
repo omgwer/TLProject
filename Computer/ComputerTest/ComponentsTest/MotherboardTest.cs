@@ -49,7 +49,10 @@ public class MotherboardTest
     [Test]
     public void MotherboardNegativeTest_ValidateInputValueForComponents()
     {
-        var newMotherboard = new MotherboardBuilder();
-
+        Assert.Throws<ArgumentException>(() => { new MotherboardBuilder().SetRamSlotsCount(-1); });
+        Assert.Throws<ArgumentException>(() => { new MotherboardBuilder().SetRamSlotsCount(0); });
+        Assert.Throws<ArgumentException>(() => { new MotherboardBuilder().SetRamSlotsCount(9); });
+        Assert.DoesNotThrow(() => { new MotherboardBuilder().SetRamSlotsCount(1); });
+        Assert.DoesNotThrow(() => { new MotherboardBuilder().SetRamSlotsCount(8); });
     }
 }
