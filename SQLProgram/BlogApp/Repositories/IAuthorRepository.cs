@@ -1,6 +1,7 @@
-﻿using SQLProgram.Models;
+﻿using System.Collections.Generic;
+using BlogApp.Models;
 
-namespace SQLProgram.Repositories
+namespace BlogApp.Repositories
 {
     interface IAuthorRepository
     {

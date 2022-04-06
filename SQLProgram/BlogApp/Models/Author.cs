@@ -1,4 +1,4 @@
-﻿namespace SQLProgram.Models
+﻿namespace BlogApp.Models
 {
     public class Author
     {

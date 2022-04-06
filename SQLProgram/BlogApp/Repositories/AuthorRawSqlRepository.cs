@@ -1,11 +1,11 @@
-﻿using System.Data;
-using SQLProgram.Models;
+﻿using BlogApp.Models;
+
 using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 
-namespace SQLProgram.Repositories
+namespace BlogApp.Repositories
 {
     class AuthorRawSqlRepository : IAuthorRepository
     {
