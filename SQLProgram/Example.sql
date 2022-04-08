@@ -1,42 +1,31 @@
-use Blogs
+use
+[UniversitySql]
 
-create table Author(
-	Id int identity(1,1) constraint PK_Author primary key,
-	Name nvarchar(100)
+create table Student
+(
+    Id        int identity(1,1) constraint PK_Student primary key,
+    FirstName nvarchar(100),
+    LastName  nvarchar(100)
 )
 
-select * from Author
-
-insert into Author
-	(Name)
-values
-	('Иван'),
-	('Маша'),
-	('Паша')
-
-update Author
-set Name = 'Олег'
-where Id = 2
-
-delete from Author
-where Id = 2
-
-
-create table Post(
-	Id int identity(1,1) constraint PK_Post primary key,
-	Title nvarchar(100),
-	Body nvarchar(max),
-	AuthorId int constraint FK_Post_Author references Author(Id)
+create table StudentGroup
+(
+    Id   int identity(1,1) constraint PK_Group primary key,
+    Name nvarchar(100)
 )
 
-select * from Post
-select * from Author
+create table StudentInGroup
+(
+    Id        int identity(1,1) constraint PK_StudentsInGroup primary key,
+    StudentId int
+        constraint FK_StudentInGroup_Student references Student (id),
+    GroupId   int
+        constraint FR_StudentInGroup_StudentGroup references StudentGroup (id)
+) insert into Student values
+('Efim','Kotov'), ('Ivan', 'Ivanov'), ('Efim','Kotov'), ('Ivan', 'Ivanov')
 
-insert into Post
-values
-('Заголовок 1', 'Тело новости', 3),
-('Заголовок 2', 'Тело новости 2', 3),
-('Заголовок 3', 'Тело новости 3', 1)
+insert into StudentGroup values
+('English'), ('Programming'), ('Math')
 
-select p.Title, p.Body, a.Name as AuthorName from Post as p
-join Author a on a.Id = p.AuthorId
+insert into StudentInGroup values
+(1,1),(1,3),(2,1),(2,1),(3,3),(4,2)
