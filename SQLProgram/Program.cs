@@ -1,6 +1,4 @@
-﻿using System.Data;
-using System.Data.SqlClient;
-using SQLProgram.Container;
+﻿using SQLProgram.Repositories;
 using SQLProgram.Repository;
 
 namespace SQLProgram;
@@ -10,36 +8,43 @@ class Program
     private const string _connectionString =
         @"Data Source=ALEXANDR\SQLEXPRESS;Initial Catalog=UniversitySql;Pooling=true;Integrated Security=SSPI";
 
-    public static void Main(string[] args)
+    public static void Main( string[] args )
     {
-        //new Test().GetStudentsCountInGroup(2,3);
-        var newStudent = new Student();
-        newStudent.FirstName = "vasya";
-        newStudent.LastName = "pupkin";
-        //    new StudentRowRepository(_connectionString).AddStudent(newStudent);
-      //  var test = new StudentRowRepository( _connectionString ).GetById( 1);
-        var listTest = new StudentRowRepository( _connectionString ).GetAllStudents();
-    }
+        var studentRowRepository = new StudentRowRepository( _connectionString );
+        var groupRowRepository = new GroupRowRepository( _connectionString );
+        var studentInGroupRepository = new StudentInGroupRepository( _connectionString );
 
-    public class Test
-    {
-        public void GetStudentsCountInGroup(int groupId, int studentId)
+        while ( true )
         {
-            using (var connection = new SqlConnection(_connectionString))
+            Console.WriteLine( "Command list: " );
+            Console.WriteLine( "\t1 - Add student" );
+            Console.WriteLine( "\t2 - Add group" );
+            Console.WriteLine( "\t3 - Add student with group" );
+            Console.WriteLine( "\t4 - Print students list" );
+            Console.WriteLine( "\t5 - Print students group" );
+            Console.WriteLine( "\t6 - Print students by group id" );
+            Console.WriteLine( "\t0 - Exit" );
+            Console.WriteLine( "Input number for run this command" );
+
+            int command = -1;
+
+            try
             {
-                connection.Open();
-                using (SqlCommand сommand = connection.CreateCommand())
-                {
-                    сommand.CommandText = @"insert into [StudentInGroup]
-                                ([StudentId], [GroupId])
-                                values 
-                                (@studentId, @groupId)";
-                    
-                    сommand.Parameters.Add( "@studentId", SqlDbType.NVarChar ).Value = studentId;
-                    сommand.Parameters.Add( "@groupId", SqlDbType.NVarChar ).Value = groupId;
-                    сommand.ExecuteNonQuery();
-                }
+                command = Convert.ToInt32( Console.ReadLine() );
             }
+            catch ( Exception ex ) {
+                Console.WriteLine("Input number!");
+            }
+
+            if ( command < 0 | command > 6 ) 
+            {
+                Console.WriteLine("This command not find");
+                continue;
+            }
+
+            
+                
         }
     }
+
 }

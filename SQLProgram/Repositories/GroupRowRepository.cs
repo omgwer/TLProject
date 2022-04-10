@@ -2,18 +2,19 @@
 using System.Data.SqlClient;
 using SQLProgram.Container;
 
-namespace SQLProgram.Repository
+namespace SQLProgram.Repositories
 {
-    public class StudentRowRepository
+    public class GroupRowRepository
     {
         private readonly string _connectionString;
 
-        public StudentRowRepository( string _connectionString )
+        public GroupRowRepository( string _connectionString )
         {
             this._connectionString = _connectionString;
         }
 
-        public void AddGroup( Student student )
+
+        public void AddGroup( string groupName )
         {
             using ( var connection = new SqlConnection( _connectionString ) )
             {
@@ -21,11 +22,10 @@ namespace SQLProgram.Repository
                 using ( var command = connection.CreateCommand() )
                 {
                     command.CommandText =
-                        @"insert into [Student]
+                        @"insert into [StudentGroup]
                             values
-                        (@FirstName, @LastName)";
-                    command.Parameters.Add( "@FirstName", SqlDbType.NVarChar ).Value = student.FirstName;
-                    command.Parameters.Add( "@LastName", SqlDbType.NVarChar ).Value = student.LastName;
+                        (@GroupName)";
+                    command.Parameters.Add( "@GroupName", SqlDbType.NVarChar ).Value = groupName;
                     command.ExecuteNonQuery();
                 }
             }
@@ -40,7 +40,7 @@ namespace SQLProgram.Repository
                 using ( var command = connection.CreateCommand() )
                 {
                     command.CommandText =
-                        @"delete from [Student]
+                        @"delete from [StudentGroup]
                         where [Id] = @id";
                     command.Parameters.Add( "@id", SqlDbType.Int ).Value = id;
 
@@ -49,9 +49,9 @@ namespace SQLProgram.Repository
             }
         }
 
-        public Student? GetById( int id )
+        public Group? GetById( int id )
         {
-            Student? student = default;
+            Group? group = default;
 
             using ( var connection = new SqlConnection( _connectionString ) )
             {
@@ -60,7 +60,7 @@ namespace SQLProgram.Repository
                 using ( SqlCommand command = connection.CreateCommand() )
                 {
                     command.CommandText =
-                        $@"select * from [Student]
+                        $@"select * from [StudentGroup]
                         where [id] = @id";
 
                     command.Parameters.Add( "@id", SqlDbType.Int ).Value = id;
@@ -69,11 +69,11 @@ namespace SQLProgram.Repository
                     {
                         if ( reader.Read() )
                         {
-                            student = new Student();
-                            var properties = typeof( Student ).GetProperties();
+                            group = new Group();
+                            var properties = typeof( Group ).GetProperties();
                             foreach ( var prop in properties )
                             {
-                                prop.SetValue( student, reader[ prop.Name ] );
+                                prop.SetValue( group, reader[ prop.Name ] );
                             }
 
                         }
@@ -81,12 +81,12 @@ namespace SQLProgram.Repository
                 }
 
             }
-            return student;
+            return group;
         }
 
-        public List<Student> GetAllStudents()
+        public List<Group> GetAllGroups()
         {
-            List<Student> studentsList = new List<Student>();
+            List<Group> groupList = new List<Group>();
 
             using ( var connection = new SqlConnection( _connectionString ) )
             {
@@ -94,27 +94,26 @@ namespace SQLProgram.Repository
 
                 using ( SqlCommand command = connection.CreateCommand() )
                 {
-                    command.CommandText = $@"select * from [Student]";
+                    command.CommandText = $@"select * from [StudentGroup]";
 
                     using ( SqlDataReader reader = command.ExecuteReader() )
                     {
                         while ( reader.Read() )
                         {
-                            var student = new Student();
-                            var properties = typeof( Student ).GetProperties();
+                            var group = new Group();
+                            var properties = typeof( Group ).GetProperties();
 
                             foreach ( var prop in properties )
                             {
-                                prop.SetValue( student, reader[ prop.Name ] );
+                                prop.SetValue( group, reader[ prop.Name ] );
                             }
 
-                            studentsList.Add( student );
-
+                            groupList.Add( group );
                         }
                     }
                 }
             }
-            return studentsList;
+            return groupList;
         }
     }
 }
