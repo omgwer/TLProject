@@ -13,7 +13,7 @@ namespace SQLProgram.Repository
             this._connectionString = _connectionString;
         }
 
-        public void AddGroup( Student student )
+        public void AddStudent( Student student )
         {
             using ( var connection = new SqlConnection( _connectionString ) )
             {

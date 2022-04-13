@@ -1,5 +1,4 @@
-﻿using SQLProgram.Repositories;
-using SQLProgram.Repository;
+﻿using SQLProgram.Helpers;
 
 namespace SQLProgram;
 
@@ -10,9 +9,9 @@ class Program
 
     public static void Main( string[] args )
     {
-        var studentRowRepository = new StudentRowRepository( _connectionString );
-        var groupRowRepository = new GroupRowRepository( _connectionString );
-        var studentInGroupRepository = new StudentInGroupRepository( _connectionString );
+        var studentHelper = new StudentHelper( _connectionString );
+        var groupHelper = new StudentGroupHelper( _connectionString );
+        var studentInGroupHelper = new StudentInGroupHelper( _connectionString );
 
         while ( true )
         {
@@ -32,18 +31,31 @@ class Program
             {
                 command = Convert.ToInt32( Console.ReadLine() );
             }
-            catch ( Exception ex ) {
-                Console.WriteLine("Input number!");
+            catch ( Exception ex )
+            {
+                Console.WriteLine( "Input number!" );
             }
 
-            if ( command < 0 | command > 6 ) 
+            if ( command < 0 | command > 6 )
             {
-                Console.WriteLine("This command not find");
+                Console.WriteLine( "This command not find" );
                 continue;
             }
 
-            
-                
+            if ( command == 0 )
+            {
+                break;
+            }
+
+            switch ( command )
+            {
+                case 1: studentHelper.AddStudent(); break;
+                case 2: groupHelper.AddGroup(); break;
+                case 3: studentInGroupHelper.AddStudentIntoGroup(); break;
+                case 4: studentHelper.GetAllStudents(); break;
+                case 5: groupHelper.GetAllGroups(); break;
+                case 6: studentInGroupHelper.GetStudentListByGroupId(); break;
+            }
         }
     }
 
