@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using TODO.Dto;
+using TODO.Services;
 
 namespace TODO.Controllers;
 
@@ -7,8 +8,13 @@ namespace TODO.Controllers;
 [Route( "api/[controller]" )]
 public class TodoController : ControllerBase
 {
-    private static TodoDto TodoElement = new TodoDto() { Id = 1, Title = "Test", IsDone = true };
-        
+    private readonly ITodoService _todoService;
+
+    public TodoController( ITodoService todoService )
+    {
+        _todoService = todoService;
+    }
+
     [HttpGet]
     [Route( "{todoId}" )]  // параметр метода в запросе
     public IActionResult GetTodo( int todoId )
@@ -19,15 +25,19 @@ public class TodoController : ControllerBase
         } else
         {
             return NotFound();
-        }
-        
+        }        
     }
 
     [HttpPost]
     [Route( "create" )]
     public IActionResult CreateTodo( [FromBody] TodoDto todo )
     {
-        return Ok( $"Id : {todo.Id}, Title : {todo.Title}, IsDone : {todo.IsDone}" );
+        TodoDto? createdTodo = _todoService.CreateTodo( todo );
+        if (createdTodo == null)
+        {
+            return NotFound();
+        }
+        return Ok( createdTodo );
     }
 
     [HttpDelete]

@@ -44,7 +44,19 @@ namespace TODO.Repositories
 
         public List<TodoDto> GetTodos()
         {
-            throw new NotImplementedException();
+            List<TodoDto> todoList = new List<TodoDto>();
+
+            using (var connection = new SqlConnection(_connectionString))
+            {
+                connection.Open();
+
+                using (var command = connection.CreateCommand())
+                {
+                    command.CommandText = @"SELECT [ID], [Title], [IsDone] FROM [dbo].[Todo]";
+                }
+            }
+
+            return todoList;
         }
 
         public void Update( TodoDto todoDto )
