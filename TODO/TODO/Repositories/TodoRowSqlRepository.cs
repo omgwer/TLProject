@@ -34,12 +34,47 @@ namespace TODO.Repositories
 
         public void Delete( TodoDto todoDto )
         {
-            throw new NotImplementedException();
+            using ( var connection = new SqlConnection( _connectionString ) )
+            {
+                connection.Open();
+                using ( var command = connection.CreateCommand() )
+                {
+                    command.CommandText = @"DELETE FROM [dbo].[Todo] WHERE [Id] = @id";
+                    command.Parameters.Add( "@id", SqlDbType.Int ).Value = todoDto.Id;
+
+                    command.ExecuteNonQuery();
+                }
+            }
         }
 
         public TodoDto? Get( int id )
         {
-            throw new NotImplementedException();
+            using ( var connection = new SqlConnection( _connectionString ) )
+            {
+                connection.Open();
+                using ( SqlCommand command = connection.CreateCommand() )
+                {
+                    command.CommandText = @"SELECT [Id], [Title], [IsDone] FROM [dbo].[Todo] WHERE [Id] = @id";
+                    command.Parameters.Add( "@id", SqlDbType.Int ).Value = id;
+
+                    using ( var reader = command.ExecuteReader() )
+                    {
+                        if ( reader.Read() )
+                        {
+                            return new TodoDto
+                            {
+                                Id = Convert.ToInt32( reader[ nameof( TodoDto.Id ) ] ),
+                                Title = Convert.ToString( reader[ nameof( TodoDto.Title ) ] ),
+                                IsDone = Convert.ToBoolean( reader[ nameof( TodoDto.IsDone ) ] )
+                            };
+                        }
+                        else
+                        {
+                            return null;
+                        }
+                    }
+                }
+            }
         }
 
         public List<TodoDto> GetTodos()
@@ -53,15 +88,40 @@ namespace TODO.Repositories
                 using (var command = connection.CreateCommand())
                 {
                     command.CommandText = @"SELECT [ID], [Title], [IsDone] FROM [dbo].[Todo]";
+
+                    using ( var reader = command.ExecuteReader() )
+                    {
+                        while ( reader.Read() )
+                        {
+                            todoList.Add( new TodoDto
+                            {
+                                Id = Convert.ToInt32( reader[ nameof( TodoDto.Id ) ] ),
+                                Title = Convert.ToString( reader[ nameof( TodoDto.Title ) ] ),
+                                IsDone = Convert.ToBoolean( reader[ nameof( TodoDto.IsDone ) ] )
+                            } );
+                        }
+                    }
                 }
             }
-
             return todoList;
         }
 
-        public void Update( TodoDto todoDto )
+        public int Update( TodoDto todoDto )
         {
-            throw new NotImplementedException();
-        }
+            using ( var connection = new SqlConnection( _connectionString ) )
+            {
+                connection.Open();
+                using ( var command = connection.CreateCommand() )
+                {
+                    command.CommandText = @"UPDATE [dbo].[Todo] SET [Title] = @title, [IsDone] = @isDone WHERE [Id] = @id";
+                    command.Parameters.Add( "@id", SqlDbType.Int ).Value = todoDto.Id;
+                    command.Parameters.Add( "@title", SqlDbType.NVarChar ).Value = todoDto.Title;
+                    command.Parameters.Add( "@isDone", SqlDbType.Bit ).Value = todoDto.IsDone;
+
+                    command.ExecuteNonQuery();
+                    return todoDto.Id;
+                }
+            }
+        }        
     }
 }

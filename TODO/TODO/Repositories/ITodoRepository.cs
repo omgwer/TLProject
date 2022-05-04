@@ -8,6 +8,6 @@ namespace TODO.Repositories
         TodoDto? Get(int id);
         int Create( TodoDto todoDto );
         void Delete( TodoDto todoDto );
-        void Update( TodoDto todoDto );
+        int Update( TodoDto todoDto );
     }
 }

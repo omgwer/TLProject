@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using TODO.Dto;
+using TODO.Repositories;
 using TODO.Services;
 
 namespace TODO.Controllers;
@@ -9,6 +10,7 @@ namespace TODO.Controllers;
 public class TodoController : ControllerBase
 {
     private readonly ITodoService _todoService;
+    private readonly string connectionString = "Data Source=ALEXANDR\\SQLEXPRESS;Initial Catalog=TodoSql;Pooling=true;Integrated Security=SSPI;";
 
     public TodoController( ITodoService todoService )
     {
@@ -21,11 +23,23 @@ public class TodoController : ControllerBase
     {
         if ( todoId == 1 )
         {
+            var t = new TodoRowSqlRepository( connectionString );
+            var dto = new TodoDto
+            {
+                Title = "test",
+                IsDone = false
+            };
+
+            t.Create( dto ); 
+            // база данных работает
+            //TODO допилить контроллер и сервисы
+
             return Ok( $"TodoId: {todoId}" );
-        } else
+        }
+        else
         {
             return NotFound();
-        }        
+        }
     }
 
     [HttpPost]
