@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using TODO.Dto;
-using TODO.Repositories;
 using TODO.Services;
 
 namespace TODO.Controllers;
@@ -10,7 +9,6 @@ namespace TODO.Controllers;
 public class TodoController : ControllerBase
 {
     private readonly ITodoService _todoService;
-    private readonly string connectionString = "Data Source=ALEXANDR\\SQLEXPRESS;Initial Catalog=TodoSql;Pooling=true;Integrated Security=SSPI;";
 
     public TodoController( ITodoService todoService )
     {
@@ -18,28 +16,35 @@ public class TodoController : ControllerBase
     }
 
     [HttpGet]
-    [Route( "{todoId}" )]  // параметр метода в запросе
-    public IActionResult GetTodo( int todoId )
+    [Route( "get-all" )]  
+    public IActionResult GetAllTodos()
     {
-        if ( todoId == 1 )
-        {
-            var t = new TodoRowSqlRepository( connectionString );
-            var dto = new TodoDto
-            {
-                Title = "test",
-                IsDone = false
-            };
+        List<TodoDto> todos = _todoService.GetTodos();
 
-            t.Create( dto ); 
-            // база данных работает
-            //TODO допилить контроллер и сервисы
-
-            return Ok( $"TodoId: {todoId}" );
-        }
-        else
+        if ( todos.Count == 0 )
         {
             return NotFound();
         }
+        else
+        {
+            return Ok( todos );
+        }
+    }
+
+    [HttpGet]
+    [Route( "{todoId}" )]  // параметр метода в запросе
+    public IActionResult GetTodo( int todoId )
+    {
+        TodoDto? todo = _todoService.GetTodo( todoId );
+
+        if ( todo == null )
+        {
+            return NotFound();
+        }
+        else
+        {
+            return Ok( todo );
+        }       
     }
 
     [HttpPost]
@@ -47,7 +52,7 @@ public class TodoController : ControllerBase
     public IActionResult CreateTodo( [FromBody] TodoDto todo )
     {
         TodoDto? createdTodo = _todoService.CreateTodo( todo );
-        if (createdTodo == null)
+        if ( createdTodo == null )
         {
             return NotFound();
         }
