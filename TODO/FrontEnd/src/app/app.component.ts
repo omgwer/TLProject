@@ -1,20 +1,41 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Book } from './item/item.component';
+import { TodoDto } from './services/item.interface'; 
+import { TodoService } from './services/todo.service';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'],
 })
-export class AppComponent {
-  tasks: Array<Book> = [
-    { id: 1, name: 'GoToShop' },
-    { id: 2, name: 'GoToCinema' },
-    { id: 3, name: 'GoToSchool' },
-  ];
+export class AppComponent implements OnInit {
+  tasks: TodoDto[] = [];
 
-  closedTasks: Array<Book> = [];
+  closedTasks: TodoDto[] = []; 
 
+  allTasks: TodoDto[] = [];
+
+  constructor(private todoService: TodoService) { }
+
+  ngOnInit(): void {
+    this.syncData();
+  }
+
+  syncData(): void
+  {
+    this.todoService.GetAll().subscribe((data: TodoDto[]) => this.allTasks = data);
+      this.allTasks.forEach(element => {
+        if(element.isDone)
+        {
+          this.closedTasks.push(element);
+        } else
+        {
+          this.tasks.push(element);
+        }
+      });   
+  }
+  // TODO
+  // переписать нормально методы получения и отправки 
   addTask(myForm: HTMLInputElement) {
     let id = this.tasks.length + 1;
     this.tasks.forEach((task) => {

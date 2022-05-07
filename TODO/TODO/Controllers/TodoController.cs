@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Cors;
+using Microsoft.AspNetCore.Mvc;
 using TODO.Dto;
 using TODO.Services;
 
@@ -16,7 +17,7 @@ public class TodoController : ControllerBase
     }
 
     [HttpGet]
-    [Route( "get-all" )]  
+    [Route( "get-all" )]
     public IActionResult GetAllTodos()
     {
         List<TodoDto> todos = _todoService.GetTodos();

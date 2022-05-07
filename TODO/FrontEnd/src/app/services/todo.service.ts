@@ -1,15 +1,17 @@
 import {HttpClient} from "@angular/common/http";
+import { Injectable } from "@angular/core";
 import {Observable} from "rxjs";
+import { TodoDto } from "./item.interface";
 
-
+@Injectable()
 export class TodoService {
-  private http: HttpClient;
+  private url: string = 'https://localhost:7118/';
 
-  constructor(http: HttpClient) {
+  constructor(private http: HttpClient) {
     this.http = http;
   }
 
-  // GetAll() : Observable<TaskDto[]>{
-  //   return this.
-  // }
+  GetAll() : Observable<TodoDto[]>{    
+    return this.http.get<TodoDto[]>('https://localhost:7118/api/Todo/get-all');
+  }
 }
