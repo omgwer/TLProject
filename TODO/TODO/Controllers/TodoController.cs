@@ -63,20 +63,19 @@ public class TodoController : ControllerBase
     [Route( "delete" )]
     public IActionResult DeleteTodo( int todoId )
     {
-        return Ok( $"Todo with id: {todoId} deleted" );
+        _todoService.DeleteTodo( todoId );
+        return Ok();
     }
 
-    // [HttpPut]
-    // [Route("{todoId}")]
-    // public IActionResult UpdateTodo([FromBody] TodoDto todo)
-    // {
-    //     try
-    //     {
-    //         return Ok($"Todo with id: {todo.Id} update");
-    //     }
-    //     catch
-    //     {
-    //         
-    //     }
-    // }
+    [HttpPut]
+    [Route( "{todoId}/complete" )]
+    public IActionResult CompleteTodo( int todoId )
+    {
+        TodoDto? comletedTodo = _todoService.CompleteTodo( todoId );
+        if ( comletedTodo == null )
+        {
+            return NotFound();
+        }
+        return Ok( comletedTodo );
+    }
 }
