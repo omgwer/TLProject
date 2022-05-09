@@ -1,0 +1,18 @@
+
+<p class="task-name">
+  {{todoDto.title}}
+</p>
+
+<ng-container *ngIf="!isShowOnlyName">
+  <div class="button-container">
+    <button class="close-task" (click)="close()">
+      Close
+    </button>
+  
+    <button class="delete-task" (click)="delete()">
+      Delete
+    </button>
+  </div>    
+</ng-container>
+
+
