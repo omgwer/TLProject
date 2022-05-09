@@ -1,7 +1,8 @@
 ﻿using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 using TODO.Dto;
-using TODO.Services;
+using TODO.Infrastructure;
+using TODO.Repositories;
 
 namespace TODO.Controllers;
 
@@ -9,19 +10,21 @@ namespace TODO.Controllers;
 [Route( "api/[controller]" )]
 public class TodoController : ControllerBase
 {
-    private readonly ITodoService _todoService;
+    private readonly ITodoRepository _todoRepository;
+    private readonly IUnitOfWork _unitOfWork;
 
-    public TodoController( ITodoService todoService )
+    public TodoController( ITodoRepository todoRepository, IUnitOfWork unitOfWork )
     {
-        _todoService = todoService;
+        _todoRepository = todoRepository;
+        _unitOfWork = unitOfWork;
     }
 
     [HttpGet]
     [Route( "get-all" )]
     public IActionResult GetAllTodos()
     {
-        List<TodoDto> todos = _todoService.GetTodos();
-
+        List<TodoDto> todos = _todoRepository.GetTodos();
+        
         if ( todos.Count == 0 )
         {
             return NotFound();
@@ -36,7 +39,7 @@ public class TodoController : ControllerBase
     [Route( "{todoId}" )]  // параметр метода в запросе
     public IActionResult GetTodo( int todoId )
     {
-        TodoDto? todo = _todoService.GetTodo( todoId );
+        TodoDto? todo = _todoRepository.GetTodo( todoId );
 
         if ( todo == null )
         {
@@ -52,11 +55,14 @@ public class TodoController : ControllerBase
     [Route( "create" )]
     public IActionResult CreateTodo( [FromBody] TodoDto todo )
     {
-        TodoDto? createdTodo = _todoService.CreateTodo( todo );
+        var createdTodo = _todoRepository.CreateTodo( todo );
         if ( createdTodo == null )
         {
             return NotFound();
         }
+
+        _unitOfWork.Commit();
+
         return Ok( createdTodo );
     }
 
@@ -64,7 +70,16 @@ public class TodoController : ControllerBase
     [Route( "{todoId}/delete" )]
     public IActionResult DeleteTodo( int todoId )
     {
-        _todoService.DeleteTodo( todoId );
+        var entity = _todoRepository.GetTodo( todoId );
+
+        if (entity == null)
+        {
+            return BadRequest();
+        }
+
+        _todoRepository.DeleteTodo( entity );
+        _unitOfWork.Commit();
+        
         return Ok();
     }
 
@@ -72,11 +87,18 @@ public class TodoController : ControllerBase
     [Route( "{todoId}/complete" )]
     public IActionResult CompleteTodo( int todoId )
     {
-        TodoDto? comletedTodo = _todoService.CompleteTodo( todoId );
-        if ( comletedTodo == null )
+        var completedTodo = _todoRepository.GetTodo( todoId );
+
+        if ( completedTodo == null )
         {
-            return NotFound();
+            return BadRequest();
         }
-        return Ok( comletedTodo );
+
+        completedTodo.IsDone = true;
+
+        _todoRepository.UpdateTodo( completedTodo );
+        _unitOfWork.Commit();
+
+        return Ok();
     }
 }

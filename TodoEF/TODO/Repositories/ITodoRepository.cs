@@ -5,9 +5,9 @@ namespace TODO.Repositories
     public interface ITodoRepository
     {
         List<TodoDto> GetTodos();
-        TodoDto? Get(int id);
-        int Create( TodoDto todoDto );
-        void Delete( TodoDto todoDto );
-        int Update( TodoDto todoDto );
+        TodoDto? GetTodo(int id);
+        TodoDto CreateTodo( TodoDto todoDto );
+        void DeleteTodo( TodoDto todoDto );
+        int UpdateTodo( TodoDto todoDto );
     }
 }
