@@ -23,39 +23,46 @@ export class AppComponent implements OnInit {
 
   syncData(): void
   {
-    this.todoService.GetAll().subscribe((data: TodoDto[]) => this.allTasks = data);
-      this.allTasks.forEach(element => {
+    this.todoService.getAll().subscribe((data: TodoDto[]) => 
+    {
+      this.allTasks = data;
+      this.allTasks.forEach(element => {        
         if(element.isDone)
         {
-          this.closedTasks.push(element);
+          this.closedTasks.push(element);          
         } else
         {
           this.tasks.push(element);
         }
-      });   
+      });  
+    });      
   }
-  // TODO
-  // переписать нормально методы получения и отправки 
-  addTask(myForm: HTMLInputElement) {
-    let id = this.tasks.length + 1;
-    this.tasks.forEach((task) => {
-      id = task.id === id ? ++id : id;
-    });
-    const newTask: Book = { id, name: myForm.value.trim() };
-    this.tasks.push(newTask);
-  }
-
-  onDelete(taskId: number): void {
-    this.tasks = this.tasks.filter((task) => task.id != taskId);
-  }
-
-  onClose(taskId: number): void {
-    const newClosedTask: Book | undefined = this.tasks.find(
-      (task) => task.id == taskId
-    );
-    this.tasks = this.tasks.filter((task) => task.id != taskId);
-    if (newClosedTask !== undefined) {
-      this.closedTasks.push(newClosedTask);
+  
+  addTask(myForm: HTMLInputElement): void {    
+    const newTask: TodoDto = { id: 0, title: myForm.value.trim(), isDone: false };
+    this.todoService.createTask(newTask).subscribe(x => this.tasks.push({
+      id: x.id,
+      title: x.title,
+      isDone: x.isDone
     }
+    ));
+  }
+
+  onDelete(taskId: number): void {      
+    this.todoService.deleteTask(taskId).subscribe(()=>{
+      this.tasks = this.tasks.filter((task) => task.id != taskId);
+    });       
+  }
+
+  onClose(taskId: number): void {  
+    this.todoService.completeTask(taskId).subscribe(() => {
+      const newClosedTask: TodoDto | undefined = this.tasks.find(
+        (task) => task.id == taskId
+      );
+      this.tasks = this.tasks.filter((task) => task.id != taskId);
+      if (newClosedTask !== undefined) {
+        this.closedTasks.push(newClosedTask);
+      }
+    });
   }
 }

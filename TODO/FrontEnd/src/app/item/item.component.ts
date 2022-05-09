@@ -1,4 +1,5 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { TodoDto } from '../services/item.interface';
 
 export interface Book {
   readonly id: number;
@@ -11,7 +12,7 @@ export interface Book {
   styleUrls: ['./item.component.css'],
 })
 export class ItemComponent {
-  @Input() book!: Book;
+  @Input() todoDto!: TodoDto;
   @Input() isShowOnlyName = false;
   @Output() onDeleteTask: EventEmitter<void> = new EventEmitter<void>();
   @Output() onCloseTask: EventEmitter<void> = new EventEmitter<void>();

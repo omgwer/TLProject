@@ -61,7 +61,7 @@ public class TodoController : ControllerBase
     }
 
     [HttpDelete]
-    [Route( "delete" )]
+    [Route( "{todoId}/delete" )]
     public IActionResult DeleteTodo( int todoId )
     {
         _todoService.DeleteTodo( todoId );

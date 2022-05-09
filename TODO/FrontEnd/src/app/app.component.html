@@ -9,7 +9,7 @@
       </form>
       <app-item
         *ngFor="let task of tasks"
-        [book]="task"
+        [todoDto]="task"
         (onDeleteTask)="onDelete(task.id)"
         (onCloseTask)="onClose(task.id)"
       >
@@ -20,7 +20,7 @@
       <app-item
         [isShowOnlyName]="true"
         *ngFor="let closedTask of closedTasks"
-        [book]="closedTask"
+        [todoDto]="closedTask"
       >
       </app-item>
     </div>
